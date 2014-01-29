@@ -5,7 +5,7 @@ This is the software for the electronic drumset project for McHacks 2014. #TeamP
 
 
 Rough Outline
-==========
+======
 
 The program itself will, in my (Dakota's) mind at least, consist of pictures of different drums on a simple screen. This is the BARE MINIMUM for a GUI that we should definitely have done by the end of the weekend. If not, that's pathetic.
 
@@ -21,7 +21,7 @@ So we'll have sounds being played back in there. For audio playback, although py
 For the hardware set-up, my idea is the following: keystrokes from the MakeyMakey are done, it seems, by completing the circuit. This is usually done by having the person hold a wire connected to the MakeyMakey (from here on, "the human end") and then press the conducting button which is also connected, thus completing the circuit. Instead, this human end should be connected to a power source at all times. This should then be connected to every drum/cymbal ("pad") but with a piezoelectric sensor breaking the circuit. When the pad is hit, the sensor produces some voltage and completes the circuit sending a signal. Done!
 
 Tools
-==========
+======
 For the modules: please make sure all of them work properly on your computer. Duh.
 
 - MakeyMakey (Dakota has ordered one as of Jan. 23rd)
@@ -36,7 +36,7 @@ For the modules: please make sure all of them work properly on your computer. Du
 
 
 Issues
-==========
+======
 Here are a few "problems" we've already talked about or that we've thought of.
 
 - What material are we going to use for the pads themselves?
@@ -48,7 +48,7 @@ Here are a few "problems" we've already talked about or that we've thought of.
 
 
 Ideas
-==========
+======
 Add your ideas here.
 - Have a filename below each picture; clicking on the picture will allow the user to change the sound from a list also on the screen; sounds should be organized: hihats, snare, toms, crash, ride, other cymbals, bass drum, miscellaneous, etc
 - Be able to add sounds into the soundbank
