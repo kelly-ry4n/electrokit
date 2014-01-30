@@ -52,3 +52,7 @@ Add your ideas here.
 - Have a filename below each picture; clicking on the picture will allow the user to change the sound from a list also on the screen; sounds should be organized: hihats, snare, toms, crash, ride, other cymbals, bass drum, miscellaneous, etc
 - Be able to add sounds into the soundbank
 - Be able to record drumming
+
+## Questions
+
+-WE'RE USING LINUX RIGHT?
