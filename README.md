@@ -29,9 +29,10 @@ For the modules: please make sure all of them work properly on your computer. Du
 - some pads of some sort for the actual drums
 - drumsticks (Kelly, dibs'd)
 - switches of sorts (for hihat pedal and bass drum)
-- Snack module (audio - http://www.speech.kth.se/snack/download.html)
 - Pyglet module (gaming - http://www.pyglet.org/download.html)
 - Pygame module (gaming - http://www.pygame.org/download.shtml)
+- WE STILL NEED AN AUDIO MODULE, SNACK WON'T COMPILE FOR LINUX FUCKMYLIFE
+- just use PyAudio, it's a bit wordy in terms of just getting something to run but it does work (http://people.csail.mit.edu/hubert/pyaudio/ or just easy_install pyaudio)
 
 
 ## Issues
@@ -42,6 +43,7 @@ Here are a few "problems" we've already talked about or that we've thought of.
 - How will the piezoelectric sensor be put inside the pad?
 - What will hold the drums up? (Do we have a frame?)
 - How will the hihat pedal work, if we get it to at all?
+- Will we have a kick pedal too?
 - Will there be any delay?
 - What's the deal with note velocity? (hitting the pad harder or softer won't change the volume output)
 
@@ -55,4 +57,4 @@ Add your ideas here.
 
 ## Questions
 
--WE'RE USING LINUX RIGHT?
+- WE'RE USING LINUX RIGHT? (Answer: pygame, pyglet, pyaudio and the MakeyMakey work on Windows and Linux so we can be diverse)
