@@ -9,10 +9,10 @@ The program itself will, in my (Dakota's) mind at least, consist of pictures of 
 
 The bridge between software and hardware will come via the MakeyMakey kit. What the MakeyMakey does is simple: keystrokes. However, in the pyglet (and presumably pygame) game module(s), handling keystrokes is incredibly simple:
 
-@window.event
-def on_key_press(symbol, modifiers):
-   if symbol == key.E:
-      #(do stuff)
+@window.event  
+def on_key_press(symbol, modifiers):  
+   if symbol == key.E:  
+      #(do stuff)  
 
 So we'll have sounds being played back in there. For audio playback, although pyglet (and again, pygame) will most certainly have functions that handle sound, we can simply use a proper library called "Snack" (see the "Tools" section).
 
@@ -23,15 +23,16 @@ For the hardware set-up, my idea is the following: keystrokes from the MakeyMake
 
 For the modules: please make sure all of them work properly on your computer. Duh.
 
-- MakeyMakey (Dakota has ordered one as of Jan. 23rd)
-- piezoelectric sensors (Dakota or Kelly?)
-- alligator clips, a lot of them
-- some pads of some sort for the actual drums
-- drumsticks (Kelly, dibs'd)
-- switches of sorts (for hihat pedal and bass drum)
+- MakeyMakey (OBTAINED)
+- piezoelectric sensors (OBTAINED)
+- wire (OBTAINED)
+- alligator clips, a lot of them (OBTAINED debateably)
+- some pads of some sort for the actual drums (IMPRINT IS FREE!)
+- drumsticks (Victor, dibs'd)
+- switches of sorts (for hihat pedal - STILL NEED)
+- Raspberry Pi for a challenge (may be supplied at event)
 - Pyglet module (gaming - http://www.pyglet.org/download.html)
 - Pygame module (gaming - http://www.pygame.org/download.shtml)
-- WE STILL NEED AN AUDIO MODULE, SNACK WON'T COMPILE FOR LINUX FUCKMYLIFE
 - just use PyAudio, it's a bit wordy in terms of just getting something to run but it does work (http://people.csail.mit.edu/hubert/pyaudio/ or just easy_install pyaudio)
 
 
