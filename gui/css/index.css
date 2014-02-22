@@ -9,3 +9,7 @@
 	float: right;
 	background-color: blue;
 }
+
+table {
+	border-spacing: 10px 0px;
+}
