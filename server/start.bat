@@ -1,0 +1,1 @@
+python -m twistd.py -ny server.py

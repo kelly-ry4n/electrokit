@@ -1,72 +1,59 @@
-#!/usr/bin/env python
+import sys
+from twisted.application import strports # pip install twisted
+from twisted.application import service
+from twisted.internet    import protocol
+from twisted.python      import log
+from twisted.web.server  import Site
+from twisted.web.static  import File
 
-import socket
-import threading
-import struct
-import hashlib
-import base64
+# http://sourceforge.net/projects/pywin32/files/pywin32/Build%20218/pywin32-218.win32-py2.7.exe/download
 
-from MaskDecode import decode
-
-PORT = 1337
-_address = ""
-
-def create_handshake_resp(handshake):
-    final_line = ""
-    lines = handshake.splitlines()
-    for line in lines:
-        parts = line.partition(": ")
-        if parts[0] == "Sec-WebSocket-Key":
-            key = parts[2]
+from txws import WebSocketFactory # pip install txws
 
 
-    magic = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11'
+class Protocol(protocol.Protocol):
+    def connectionMade(self):
+        from twisted.internet import reactor
+        log.msg("launch a new process on each new connection")
+        self.pp = ProcessProtocol()
+        self.pp.factory = self
+        reactor.spawnProcess(self.pp, sys.executable,
+                             [sys.executable, '-u', 'client.py'])
+    def dataReceived(self, data):
+        log.msg("redirect received data to process' stdin: %r" % data)
+        self.pp.transport.write(data)
+    def connectionLost(self, reason):
+        self.pp.transport.loseConnection()
 
-    accept_key = base64.b64encode(hashlib.sha1(key+magic).digest())
-
-    return (
-        "HTTP/1.1 101 Switching Protocols\r\n"
-        "Upgrade: WebSocket\r\n"
-        "Connection: Upgrade\r\n"
-        "Sec-WebSocket-Accept: " + accept_key + "\r\n\r\n")
+    def _send(self, data):
+        self.transport.write(data) # send back
 
 
-def handle(s, addr):
-    data = s.recv(1024)
-    response = create_handshake_resp(data)
-    s.sendto(response, addr)
-    lock = threading.Lock()
+class ProcessProtocol(protocol.ProcessProtocol):
+    def connectionMade(self):
+        log.msg("connectionMade")
+    def outReceived(self, data):
+        log.msg("send stdout back %r" % data)
+        self._sendback(data)
+    def errReceived(self, data):
+        log.msg("send stderr back %r" % data)
+        self._sendback(data)
+    def processExited(self, reason):
+        log.msg("processExited")
+    def processEnded(self, reason):
+        log.msg("processEnded")
 
-    while 1:
-        print "Waiting for data from", addr
-        data = s.recv(1024)
-        print "Done"
-        print "sending..."
-        s.send('sdfds')
-        if not data:
-            print "No data"
-            break
+    def _sendback(self, data):
+        self.factory._send(data)
 
-        print 'Data from', addr, ':', decode(data)
 
-    print 'Client closed:', addr
-    lock.acquire()
-    clients.remove(s)
-    lock.release()
-    s.close()
+application = service.Application("ws-cli")
 
-def start_server():
-    print 'STARTING SERVER...'
-    s = socket.socket()
-    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s.bind(('', PORT))
-    s.listen(1)
-    print 'SERVER STARTED'
-    while 1:
-        conn, addr = s.accept()
-        print 'NEW CONNECTION ['+str(len(clients))+'], connected by ', addr
-        clients.append(conn)
-        threading.Thread(target = handle, args = (conn, addr)).start()
+_echofactory = protocol.Factory()
+_echofactory.protocol = Protocol
+strports.service("tcp:8076:interface=127.0.0.1",
+                 WebSocketFactory(_echofactory)).setServiceParent(application)
 
-clients = []
-start_server()
+resource = File('.') # serve current directory INCLUDING *.py files
+strports.service("tcp:8080:interface=127.0.0.1",
+                 Site(resource)).setServiceParent(application)
