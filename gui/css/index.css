@@ -1,0 +1,11 @@
+#imgs {
+	width: 70%;
+	float: left;
+	background-color: red;
+}
+
+#list {
+	width: 30%;
+	float: right;
+	background-color: blue;
+}
