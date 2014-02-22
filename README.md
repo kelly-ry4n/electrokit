@@ -11,10 +11,10 @@ The bridge between software and hardware will come via the MakeyMakey kit. What 
 
 @window.event  
 def on_key_press(symbol, modifiers):  
-   if symbol == key.E:  
-      #(do stuff)  
+    if symbol == key.E:  
+        #(do stuff)  
 
-So we'll have sounds being played back in there. For audio playback, although pyglet (and again, pygame) will most certainly have functions that handle sound, we can simply use a proper library called "Snack" (see the "Tools" section).
+So we'll have sounds being played back in there. For audio playback, although pyglet (and again, pygame) will most certainly have functions that handle sound, we can simply use a proper library called PyAudio (see the "Tools" section).
 
 For the hardware set-up, my idea is the following: keystrokes from the MakeyMakey are done, it seems, by completing the circuit. This is usually done by having the person hold a wire connected to the MakeyMakey (from here on, "the human end") and then press the conducting button which is also connected, thus completing the circuit. Instead, this human end should be connected to a power source at all times. This should then be connected to every drum/cymbal ("pad") but with a piezoelectric sensor breaking the circuit. When the pad is hit, the sensor produces some voltage and completes the circuit sending a signal. Done!
 
@@ -33,7 +33,7 @@ For the modules: please make sure all of them work properly on your computer. Du
 - Raspberry Pi for a challenge (may be supplied at event)
 - Pyglet module (gaming - http://www.pyglet.org/download.html)
 - Pygame module (gaming - http://www.pygame.org/download.shtml)
-- just use PyAudio, it's a bit wordy in terms of just getting something to run but it does work (http://people.csail.mit.edu/hubert/pyaudio/ or just easy_install pyaudio)
+- PyAudio module (audio - it's a bit wordy in terms of just getting something to run but it does work, http://people.csail.mit.edu/hubert/pyaudio/ or just easy_install pyaudio)
 
 
 ## Issues
