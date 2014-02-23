@@ -19,7 +19,7 @@ def init(out_q):
         # the note velocity is calculated for the input
         # print pad
         try:
-            out_q.put(pad)
+            out_q.put(a)
         except TypeError:
             pass
 
