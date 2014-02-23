@@ -30,10 +30,10 @@ class PiezoThread(threading.Thread):
                 old_i = 0
                 for i in xrange(len(quasi_derivative[0:-2])):
                         if quasi_derivative[i] > 0 and quasi_derivative[i+1] < 0:
-				if old_i < i - 500 and data[old_i] < data[i]:
-					old_i = i
-				else:
-					volumes.append(data[old_i])
+							if old_i < i - 500 and data[old_i] < data[i]:
+								old_i = i
+							else:
+								volumes.append(data[old_i])
 		return volumes[-2]
 
 
