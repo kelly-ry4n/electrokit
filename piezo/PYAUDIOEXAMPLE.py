@@ -9,7 +9,7 @@ CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
-RECORD_SECONDS = 3
+RECORD_SECONDS = 10
 #WAVE_OUTPUT_FILENAME = "output.wav"
 
 p = pyaudio.PyAudio()
@@ -50,14 +50,15 @@ new_array[new_array < low_threshold] = 0
 
 from scipy.fftpack import rfft,irfft
 
-almost_derivative = np.diff(smooth(new_array))
-plt.plot(smooth(new_array))
+new_array = smooth(new_array)
+almost_derivative = np.diff(new_array)
+plt.plot(new_array)
 plt.show()
 plt.plot(almost_derivative)
 plt.show()
 for i in xrange(len(almost_derivative[:-2])):
 	if almost_derivative[i] > 0 and almost_derivative[i+1] < 0:
-	    print almost_derivative[i]
+	    print i, almost_derivative[i],new_array[i]
 plt.subplot(121)
 plt.plot(np.concatenate(frames),'o')
 plt.subplot(122)

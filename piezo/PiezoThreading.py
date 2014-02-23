@@ -2,6 +2,7 @@ import threading
 from Queue import Queue
 import pyaudio
 import numpy as np
+from helper import smooth, noise_cancel
 #from scipy.fftpack import rfft
 
 class PiezoThread(threading.Thread):
@@ -16,9 +17,28 @@ class PiezoThread(threading.Thread):
 		while True:
 			if not input_queue.empty()
 				input_queue.get()
-				output_queue.put(#np.fromstring(old_data,dtype=np.uint32 ##Return Volume
-					)
+
+				data = np.fromstring(old_data,dtype=np.uint16)
+				data = noise_cancel(data)
+				smooth_data = smooth(data)
+
+   				vol = self.volume(smooth_data)
+				output_queue.put(vol)
+
             old_data,curr_data = curr_data, stream.read(chunk)
+
+    def volume(self,data):
+    	quasi_derivative = np.diff(data)
+    	volumes = []
+    	old_i = 0
+    	for i in xrange(len(quasi_derivative[0:-2])):
+    		if quasi_derivative[i] > 0 and quasi_derivative[i+1] < 0:
+    			if old_i < i - 500 and data[old_i] < data[i]:
+    				old_i = i
+    			else:
+    				volumes.append(data[old_i]))
+		
+		return volumes[-1]
 
 
 class VolumeThread(threading.Thread):
