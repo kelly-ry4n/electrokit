@@ -5,6 +5,11 @@ import numpy as np
 from helper import smooth, noise_cancel
 
 class PiezoThread(threading.Thread):
+	def __init__(self,input_queue,output_queue):
+		threading.Thread.__init__(self)
+		self.input_queue = input_queue
+		self.output_queue = output_queue
+
 	def run(self,input_queue,output_queue,chunk=1024,channels=1,sample_rate=44100):
 		controller = pyaudio.PyAudio()
 		stream     = controller.open(format = pyaudio.paInt32,
@@ -14,14 +19,14 @@ class PiezoThread(threading.Thread):
                           frames_per_buffer = chunk)
 		curr_data = None
 		while True:
-			if not input_queue.empty():
-				input_queue.get()
+			if not self.input_queue.empty():
+				self.input_queue.get()
 
 				data = np.fromstring(old_data,dtype=np.uint16)
 				data = noise_cancel(data)
 				smooth_data = smooth(data)
 				vol = self.volume(smooth_data)
-				output_queue.put(vol)
+				self.output_queue.put(vol)
 			old_data,curr_data = curr_data, stream.read(chunk)
 
 	def volume(self,data,start=0,end=-1):
@@ -38,6 +43,11 @@ class PiezoThread(threading.Thread):
 
 
 class VolumeThread(threading.Thread):
+	def __init__(self,input_queue,output_queue):
+		threading.Thread.__init__(self)
+		self.input_queue = input_queue
+		self.output_queue = output_queue
+		
 	def run(self,input_queue,output_queue):
 		piezo_out = Queue()
 		piezo_in  = Queue()
@@ -48,4 +58,3 @@ class VolumeThread(threading.Thread):
 			piezo_in.put(None)
 			volume = piezo_out.get(block=True)
 			output_queue.put((drum_number,volume))
-
