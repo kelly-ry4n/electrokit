@@ -10,7 +10,7 @@ class PiezoThread(threading.Thread):
 		self.input_queue = input_queue
 		self.output_queue = output_queue
 
-	def run(self,input_queue,output_queue,chunk=1024,channels=1,sample_rate=44100):
+	def run(self,chunk=1024,channels=1,sample_rate=44100):
 		controller = pyaudio.PyAudio()
 		stream     = controller.open(format = pyaudio.paInt32,
                                    channels = channels,
@@ -47,8 +47,8 @@ class VolumeThread(threading.Thread):
 		threading.Thread.__init__(self)
 		self.input_queue = input_queue
 		self.output_queue = output_queue
-		
-	def run(self,input_queue,output_queue):
+
+	def run(self):
 		piezo_out = Queue()
 		piezo_in  = Queue()
 		piezos    = PiezoThread(piezo_in,piezo_out)
