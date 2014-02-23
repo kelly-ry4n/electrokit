@@ -4,7 +4,7 @@ sys.path += [sys.path[0] + '../../']
 
 from threading import Thread
 from Queue import Queue
-import piezo.stub
+from piezo.PiezoThreading import VolumeThread
 import makey.keypress
 import json
 
@@ -13,10 +13,11 @@ def main():
     makey_out_q = Queue()
     piezo_out_q = Queue()
 
+    t = VolumeThread()
+    t.run(makey_out_q,piezo_out_q)
+
     t1 = Thread(target=makey.keypress.init,args=(makey_out_q,))
-    t2 = Thread(target=piezo.stub.init,args=(makey_out_q,piezo_out_q,))
     t1.start()
-    t2.start()
 
     def main_block():
         while True:
