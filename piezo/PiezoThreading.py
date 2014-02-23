@@ -63,5 +63,5 @@ class VolumeThread(threading.Thread):
         while True:
             drum_number = self.input_queue.get(block=True)
             piezo_in.put(None)
-            volume = piezo_out.get(block=True)
+            volume = piezo_out.get(block=True)/32000.
             self.output_queue.put((drum_number,volume))

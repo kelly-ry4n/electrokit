@@ -57,7 +57,7 @@ def smooth(x,window_len=11,window='hanning'):
     y=numpy.convolve(w/w.sum(),s,mode='valid')
     return y
 
-from .settings import low_threshold, high_threshold
+from settings import low_threshold, high_threshold
 
 def noise_cancel(data,low_threshold=low_threshold,high_threshold=high_threshold, int_type=16):
     """
