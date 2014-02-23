@@ -18,7 +18,7 @@ class Protocol(protocol.Protocol):
         self.pp = ProcessProtocol()
         self.pp.factory = self
         reactor.spawnProcess(self.pp, sys.executable,
-                             [sys.executable, '-u', 'client.py'])
+                             [sys.executable, '-u', 'wait_for_makey.py'])
     def dataReceived(self, data):
         log.msg("redirect received data to process' stdin: %r" % data)
         self.pp.transport.write(data)
@@ -54,6 +54,6 @@ _echofactory.protocol = Protocol
 strports.service("tcp:8076:interface=127.0.0.1",
                  WebSocketFactory(_echofactory)).setServiceParent(application)
 
-resource = File('.') # serve current directory INCLUDING *.py files
+resource = File('../') # serve current directory INCLUDING *.py files
 strports.service("tcp:8080:interface=127.0.0.1",
                  Site(resource)).setServiceParent(application)
