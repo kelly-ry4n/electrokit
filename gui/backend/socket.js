@@ -7,6 +7,7 @@ $(document).ready(function() {
     socket.onmessage = function(e) {
       var json, json_ar, _i, _len;
       json_ar = e.data.split("\n");
+      print(json_ar);
       for (_i = 0, _len = json_ar.length; _i < _len; _i++) {
         json = json_ar[_i];
         console.log(json);

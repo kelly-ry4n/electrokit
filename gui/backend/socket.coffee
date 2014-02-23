@@ -13,6 +13,7 @@ $(document).ready ->
     socket.onmessage = (e) ->
       # console.log e.data
       json_ar = e.data.split("\n")
+      print json_ar
       for json in json_ar
         # Play sound here
         console.log json

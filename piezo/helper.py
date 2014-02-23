@@ -57,7 +57,9 @@ def smooth(x,window_len=11,window='hanning'):
     y=numpy.convolve(w/w.sum(),s,mode='valid')
     return y
 
-def noise_cancel(data,low_threshold=5000,high_threshold=32768, int_type=16):
+from .settings import low_threshold, high_threshold
+
+def noise_cancel(data,low_threshold=low_threshold,high_threshold=high_threshold, int_type=16):
     """
     Will take piezo data, and cut to zero anything below low_threshold and will
     invert and lower to zero anything above high_threshold.
@@ -67,6 +69,6 @@ def noise_cancel(data,low_threshold=5000,high_threshold=32768, int_type=16):
     for i in range(len(data)):
         if data[i] > high_threshold:
             data[i] = max_int - data[i]
-    data[new_array < low_threshold] = 0
+    data[data < low_threshold] = 0
 
     return data
