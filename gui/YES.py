@@ -3,7 +3,7 @@ from pyglet.window import key
 
 window = pyglet.window.Window();
 
-#background = pyglet.sprite.Sprite("background.jpg");
+background = pyglet.image.load("img/background.jpg");
 
 snare = pyglet.media.StaticSource(pyglet.media.load('./audio/snare/snare-1.mp3'));
 tom1 = pyglet.media.StaticSource(pyglet.media.load('./audio/tom1/tom1-1.mp3'));
@@ -35,6 +35,6 @@ def on_key_press(symbol, modifiers):
 @window.event
 def on_draw():
 	window.clear();
-	#background.blit(0,0);
+	background.blit(0,0);
 
 pyglet.app.run();

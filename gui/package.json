@@ -1,8 +1,0 @@
-{
-	"name": "electrokit",
-	"main": "./index.html",
-	"window": {
-		"width": 1000,
-		"height": 750
-	}
-}
